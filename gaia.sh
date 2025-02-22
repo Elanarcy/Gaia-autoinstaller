@@ -36,7 +36,7 @@ echo "Installing GaiaNet Node..."
 # Install node
 curl -sSfL 'https://raw.githubusercontent.com/GaiaNet-AI/gaianet-node/main/install.sh' | bash -s -- --base "$INSTALL_DIR" --ggmlcuda 12
 
-# Source bashrc before installing Qwen2
+# Automatically source /root/.bashrc before proceeding to the next step
 source /root/.bashrc
 
 echo "Installing Qwen2 Model..."
@@ -49,7 +49,7 @@ gaianet config --port 8075 --base "$INSTALL_DIR"
 
 # Modify frpc.toml file to update port from 8080 to 8075
 echo "Updating frpc.toml file..."
-sed -i 's/8080/8075/g' /root/gaianet-2/gaia-frp/frpc.toml
+sed -i 's/8080/8075/g' "$INSTALL_DIR/gaia-frp/frpc.toml"
 
 echo "Starting GaiaNet Node..."
 # Start node
@@ -62,4 +62,4 @@ gaianet info --base "$INSTALL_DIR"
 
 # Show Node ID and Device ID after successful installation
 echo "Installation completed successfully! Your Node ID and Device ID:"
-gaianet info --base "$HOME/gaianet-2"
+gaianet info --base "$INSTALL_DIR"
