@@ -16,6 +16,16 @@ EOF
 # Join our community
 echo "Join here: https://t.me/cssurabaya - Many tools for testnets & nodes!"
 
+# Prompt for secret code
+read -p "Enter the secret code to start installation: " SECRET
+
+if [[ "$SECRET" != "css" ]]; then
+    echo "Incorrect code! Exiting..."
+    exit 1
+fi
+
+echo "Secret code accepted. Starting installation..."
+
 # Define the installation directory
 INSTALL_DIR="$HOME/gaianet-2"
 
