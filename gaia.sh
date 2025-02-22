@@ -36,8 +36,31 @@ echo "Installing GaiaNet Node..."
 # Install node
 curl -sSfL 'https://raw.githubusercontent.com/GaiaNet-AI/gaianet-node/main/install.sh' | bash -s -- --base "$INSTALL_DIR" --ggmlcuda 12
 
-# Automatically source /root/.bashrc before proceeding to the next step
-source /root/.bashrc
+# Prompt the user before proceeding
+read -p "Please type 'ok' to automatically run 'source /root/.bashrc' and continue: " RESPONSE
+if [[ "$RESPONSE" == "ok" ]]; then
+    source /root/.bashrc
+    # Check if 'gaianet' is now available
+    if ! command -v gaianet &> /dev/null; then
+        echo "gaianet command not found after sourcing /root/.bashrc."
+        # Attempt to update PATH assuming the binary is in $INSTALL_DIR/bin
+        if [ -d "$INSTALL_DIR/bin" ]; then
+            export PATH="$INSTALL_DIR/bin:$PATH"
+            echo "Updated PATH: $PATH"
+            # Recheck for the gaianet command
+            if ! command -v gaianet &> /dev/null; then
+                echo "gaianet still not found. Please verify the installation."
+                exit 1
+            fi
+        else
+            echo "Directory $INSTALL_DIR/bin not found. Please verify the installation."
+            exit 1
+        fi
+    fi
+else
+    echo "Confirmation not received. Exiting..."
+    exit 1
+fi
 
 echo "Installing Qwen2 Model..."
 # Install model qwen2
@@ -60,6 +83,5 @@ echo "Fetching Node ID and Device ID..."
 # Display node details
 gaianet info --base "$INSTALL_DIR"
 
-# Show Node ID and Device ID after successful installation
 echo "Installation completed successfully! Your Node ID and Device ID:"
 gaianet info --base "$INSTALL_DIR"
