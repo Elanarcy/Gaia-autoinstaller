@@ -3,15 +3,14 @@
 set -e  # Exit immediately if a command exits with a non-zero status
 
 # ASCII Name Banner
-echo """
- _______  __          ___      .__   __.      ___      .______        ______ ____    ____ 
-|   ____||  |        /   \     |  \ |  |     /   \     |   _  \      /      |\   \  /   / 
-|  |__   |  |       /  ^  \    |   \|  |    /  ^  \    |  |_)  |    |  ,----' \   \/   /  
-|   __|  |  |      /  /_\  \   |  . `  |   /  /_\  \   |      /     |  |       \_    _/   
-|  |____ |  `----./  _____  \  |  |\   |  /  _____  \  |  |\  \----.|  `----.    |  |     
-|_______||_______/__/     \__\ |__| \__| /__/     \__\ | _| `._____| \______|    |__|     
-                                                                                          
-"""
+echo -e "\n\
+ _______  __          ___      .__   __.      ___      .______        ______ ____    ____ \n\
+|   ____||  |        /   \     |  \ |  |     /   \     |   _  \      /      |\   \  /   / \n\
+|  |__   |  |       /  ^  \    |   \|  |    /  ^  \    |  |_)  |    |  ,----' \   \/   /  \n\
+|   __|  |  |      /  /_\  \   |  . \`  |   /  /_\  \   |      /     |  |       \_    _/   \n\
+|  |____ |  `----./  _____  \  |  |\   |  /  _____  \  |  |\  \----.|  `----.    |  |     \n\
+|_______||_______/__/     \__\ |__| \__| /__/     \__\ | _| \`._____| \______|    |__|     \n\
+"
 
 # Join our community
 echo "Join here: https://t.me/cssurabaya - Many tools for testnets & nodes!"
@@ -25,6 +24,9 @@ mkdir -p "$INSTALL_DIR"
 echo "Installing GaiaNet Node..."
 # Install node
 curl -sSfL 'https://raw.githubusercontent.com/GaiaNet-AI/gaianet-node/main/install.sh' | bash -s -- --base "$INSTALL_DIR" --ggmlcuda 12
+
+# Source bashrc before installing Qwen2
+source /root/.bashrc
 
 echo "Installing Qwen2 Model..."
 # Install model qwen2
