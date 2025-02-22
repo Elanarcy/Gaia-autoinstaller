@@ -60,4 +60,6 @@ echo "Fetching Node ID and Device ID..."
 # Display node details
 gaianet info --base "$INSTALL_DIR"
 
-echo "GaiaNet installation and configuration completed successfully!"
+# Show Node ID and Device ID after successful installation
+echo "Installation completed successfully! Your Node ID and Device ID:"
+gaianet info --base "$HOME/gaianet-2"
